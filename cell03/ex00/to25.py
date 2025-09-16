@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 def to25(num):
     if num < 25:
         while num < 25:
