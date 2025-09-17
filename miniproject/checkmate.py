@@ -10,8 +10,7 @@ def pawn_algorithm(board_size, pawn_position):
 
 def bishop_algorithm(board_size, bishop_position):
     can_check = []
-    bishop_cols = bishop_position[0]
-    bishop_rows = bishop_position[1]
+    bishop_cols, bishop_rows = bishop_position
     for i in range(1, board_size):
         if bishop_cols+i <= board_size and bishop_rows+i <= board_size:
             can_check.append([bishop_cols+i, bishop_rows+i])
@@ -25,8 +24,7 @@ def bishop_algorithm(board_size, bishop_position):
 
 def rook_algorithm(board_size, rook_position):
     can_check = []
-    rook_cols = rook_position[0]
-    rook_rows = rook_position[1]
+    rook_cols, rook_rows = rook_position
     for i in range(1, board_size+1):
         if i < board_size+1 and [rook_cols, i] != rook_position:
             can_check.append([rook_cols, i])
@@ -43,7 +41,7 @@ def chess_board(table):
     size = len(rows)
 
     for cols in rows:
-        if len(cols) > len(rows) or len(cols) < len(rows):
+        if len(cols) != len(rows):
             board_check = False
             break
 
@@ -89,13 +87,24 @@ def checkmate(table):
         check_all += queen_algorithm(size, units[3])
     if units[4] != []:
         check_all += rook_algorithm(size, units[4])
-
-    # for i in range(1, size+1):
-    #     for j in range(1, size+1):
-    #         print("x", end="") if [j, i] in check_all else print(".", end="")
+    
+    # for rows in range(1, size+1):
+    #     for cols in range(1, size+1):
+    #         if units[0] not in check_all and [cols, rows] == units[0]:
+    #             print("K", end="")
+    #         elif [cols, rows] == units[1]:
+    #             print("B", end="")
+    #         elif [cols, rows] == units[2]:
+    #             print("P", end="")
+    #         elif [cols, rows] == units[3]:
+    #             print("Q", end="")
+    #         elif [cols, rows] == units[4]:
+    #             print("R", end="")
+    #         else:
+    #             print("x", end="") if [cols, rows] in check_all else print(".", end="")
     #     print("")
 
     if units[0] in check_all and board_check:
-        return print("Success!")
+        return print("Success")
     else:
-        return print("Fail!")
+        return print("Fail")
