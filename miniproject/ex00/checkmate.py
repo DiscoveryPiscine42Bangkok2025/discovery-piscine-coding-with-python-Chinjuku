@@ -2,32 +2,42 @@ def pawn_algorithm(board_size, pawn_position):
     can_check = []
     pawn_cols = pawn_position[0]
     pawn_rows = pawn_position[1]
+    # ซ้ายบน
     if pawn_cols-1 > 0 and pawn_rows-1 > 0:
         can_check.append([pawn_cols-1, pawn_rows-1])
+    # ขวาบน
     if pawn_cols+1 < board_size and pawn_rows-1 > 0:
         can_check.append([pawn_cols+1, pawn_rows-1])
     return can_check
 
 def bishop_algorithm(board_size, bishop_position):
     can_check = []
-    bishop_cols, bishop_rows = bishop_position
-    for i in range(1, board_size):
-        if bishop_cols+i <= board_size and bishop_rows+i <= board_size:
+    bishop_cols = bishop_position[0]
+    bishop_rows = bishop_position[1]
+    for i in range(1, board_size+1):
+        # ล่างขวา
+        if bishop_cols+i < board_size+1 and bishop_rows+i < board_size+1: 
             can_check.append([bishop_cols+i, bishop_rows+i])
+        # บนซ้าย
         if bishop_cols-i > 0 and bishop_rows-i > 0:
             can_check.append([bishop_cols-i, bishop_rows-i])
-        if bishop_cols+i <= board_size and bishop_rows-i > 0:
+        # บนขวา
+        if bishop_cols+i < board_size+1 and bishop_rows-i > 0:
             can_check.append([bishop_cols+i, bishop_rows-i])
-        if bishop_cols-i > 0 and bishop_rows+i <= board_size:
+        # ล่างซ้าย
+        if bishop_cols-i > 0 and bishop_rows+i < board_size+1:
             can_check.append([bishop_cols-i, bishop_rows+i])
     return can_check
 
 def rook_algorithm(board_size, rook_position):
     can_check = []
-    rook_cols, rook_rows = rook_position
+    rook_cols = rook_position[0]
+    rook_rows = rook_position[1]
     for i in range(1, board_size+1):
+        #  (add rows) and cols lock
         if i < board_size+1 and [rook_cols, i] != rook_position:
             can_check.append([rook_cols, i])
+        #  (add cols) and rows lock
         if i < board_size+1 and [i, rook_rows] != rook_position:
             can_check.append([i, rook_rows])
     return can_check
