@@ -1,15 +1,3 @@
-def pawn_algorithm(board_size, pawn_position):
-    can_check = []
-    pawn_cols = pawn_position[0]
-    pawn_rows = pawn_position[1]
-    # ซ้ายบน
-    if pawn_cols-1 > 0 and pawn_rows-1 > 0:
-        can_check.append([pawn_cols-1, pawn_rows-1])
-    # ขวาบน
-    if pawn_cols+1 < board_size and pawn_rows-1 > 0:
-        can_check.append([pawn_cols+1, pawn_rows-1])
-    return can_check
-
 def bishop_algorithm(board_size, bishop_position):
     can_check = []
     bishop_cols = bishop_position[0]
@@ -27,6 +15,18 @@ def bishop_algorithm(board_size, bishop_position):
         # ล่างซ้าย
         if bishop_cols-i > 0 and bishop_rows+i < board_size+1:
             can_check.append([bishop_cols-i, bishop_rows+i])
+    return can_check
+
+def pawn_algorithm(board_size, pawn_position):
+    can_check = []
+    pawn_cols = pawn_position[0]
+    pawn_rows = pawn_position[1]
+    # ซ้ายบน
+    if pawn_cols-1 > 0 and pawn_rows-1 > 0:
+        can_check.append([pawn_cols-1, pawn_rows-1])
+    # ขวาบน
+    if pawn_cols+1 < board_size and pawn_rows-1 > 0:
+        can_check.append([pawn_cols+1, pawn_rows-1])
     return can_check
 
 def rook_algorithm(board_size, rook_position):
@@ -97,7 +97,7 @@ def checkmate(table):
         check_all += queen_algorithm(size, units[3])
     if units[4] != []:
         check_all += rook_algorithm(size, units[4])
-    
+
     # for rows in range(1, size+1):
     #     for cols in range(1, size+1):
     #         if units[0] not in check_all and [cols, rows] == units[0]:
@@ -113,8 +113,10 @@ def checkmate(table):
     #         else:
     #             print("x", end="") if [cols, rows] in check_all else print(".", end="")
     #     print("")
-
+    
     if units[0] in check_all and board_check:
         return print("Success")
     else:
         return print("Fail")
+    
+    
